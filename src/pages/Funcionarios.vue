@@ -53,21 +53,15 @@
         />
       </label>
     </span>
-
-    <!-- <input
-      v-model="funcionario.folga"
-      class="w-4/5 block m-auto text-center"
-      type="text"
-      placeholder="Folga"
-    /> -->
-    <select>
-      <option value="">Domingo</option>
-      <option value="">Segunda-feira</option>
-      <option value="">Terça-feira</option>
-      <option value="">Quarta-feira</option>
-      <option value="">Quinta-feira</option>
-      <option value="">Sexta-feira</option>
-      <option value="">Sábado</option>
+    <select v-model="funcionario.folga">
+      <option>Selecione</option>
+      <option value="Domingo">Domingo</option>
+      <option value="Segunda-feira">Segunda-feira</option>
+      <option value="Terça-feira">Terça-feira</option>
+      <option value="Quarta-feira">Quarta-feira</option>
+      <option value="Quinta-feira">Quinta-feira</option>
+      <option value="Sexta-feira">Sexta-feira</option>
+      <option value="Sábado">Sábado</option>
     </select>
     <label
       >Houve folga no domingo?
@@ -76,12 +70,70 @@
     <button
       class="px-3 py-1 w-1/2 mx-auto block bg-orange-400 rounded-lg"
       @click="salvarFuncionario()"
-      
     >
       Cadastrar
     </button>
   </div>
 
+  <div class="p-4">
+    <div class="bg-white p-4 rounded-md">
+      <div
+        class="
+          flex
+          justify-around
+          bg-gradient-to-tr
+          from-indigo-600
+          to-purple-600
+          rounded-t-md
+          py-2
+          px-4
+          text-white
+          font-bold
+          text-md
+        "
+      >
+        <div>
+          <span>Nome</span>
+        </div>
+        <div>
+          <span>Turno</span>
+        </div>
+        <div>
+          <span>Folga Semanal</span>
+        </div>
+        <div>
+          <span>Domingo do mês</span>
+        </div>
+      </div>
+      <div>
+        <div
+          v-for="i in funcionarios"
+          :key="i.nome"
+          class="
+            flex
+            items-center
+            justify-around
+            text-sm
+            font-normal
+            hover:bg-slate-400
+            border-x-2 border-b-2
+          "
+        >
+          <div class="w-24 py-2 text-center">
+            <span>{{ i.nome }}</span>
+          </div>
+          <div class="w-14">
+            <span>{{ i.turno }}</span>
+          </div>
+          <div class="w-28">
+            <span>{{ i.folga }}</span>
+          </div>
+          <span class="com-domingo" v-if="i.domingo"></span>
+          <span class="sem-domingo" v-else></span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -107,7 +159,7 @@ export default {
       this.buscarFuncionario();
     },
   },
- 
+
   mounted() {
     this.buscarFuncionario();
   },
@@ -115,4 +167,16 @@ export default {
 </script>
 
 <style>
+.com-domingo,
+.sem-domingo {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.com-domingo {
+  background-color: lawngreen;
+}
+.sem-domingo {
+  background-color: red;
+}
 </style>
