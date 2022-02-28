@@ -75,63 +75,121 @@
     </button>
   </div>
 
-  <div class="p-4">
-    <div class="bg-white p-4 rounded-md">
-      <div
-        class="
-          flex
-          justify-around
-          bg-gradient-to-tr
-          from-indigo-600
-          to-purple-600
-          rounded-t-md
-          py-2
-          px-4
-          text-white
-          font-bold
-          text-md
-        "
-      >
-        <div>
-          <span>Nome</span>
-        </div>
-        <div>
-          <span>Turno</span>
-        </div>
-        <div>
-          <span>Folga Semanal</span>
-        </div>
-        <div>
-          <span>Domingo do mês</span>
-        </div>
-      </div>
-      <div>
-        <div
-          v-for="i in funcionarios"
-          :key="i.nome"
-          class="
-            flex
-            items-center
-            justify-around
-            text-sm
-            font-normal
-            hover:bg-slate-400
-            border-x-2 border-b-2
-          "
-        >
-          <div class="w-24 py-2 text-center">
-            <span>{{ i.nome }}</span>
-          </div>
-          <div class="w-14">
-            <span>{{ i.turno }}</span>
-          </div>
-          <div class="w-28">
-            <span>{{ i.folga }}</span>
-          </div>
-          <span class="com-domingo" v-if="i.domingo"></span>
-          <span class="sem-domingo" v-else></span>
-        </div>
-      </div>
+  <div class="w-full lg:w-5/6 m-auto">
+    <div class="bg-white shadow-md rounded my-6">
+      <table class="min-w-max w-full table-auto">
+        <thead>
+          <tr
+            class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+          >
+            <th class="py-3 px-6 text-left">Nome</th>
+            <th class="py-3 px-6 text-left">Turno</th>
+            <th class="py-3 px-6 text-center">Folga semanal</th>
+            <th class="py-3 px-6 text-center">Status domingo</th>
+            <th class="py-3 px-6 text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+          <tr
+            v-for="i in funcionarios"
+            :key="i.nome"
+            class="border-b border-gray-200 hover:bg-gray-100"
+          >
+            <td class="py-3 px-6 text-left whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="mr-2"></div>
+                <span class="font-medium">{{ i.nome }}</span>
+              </div>
+            </td>
+            <td class="py-3 px-6 text-left">
+              <span>{{ i.turno }}</span>
+            </td>
+            <td class="py-3 px-6 text-center">
+              <span>{{ i.folga }}</span>
+            </td>
+            <td class="py-3 px-6 text-center">
+              <span
+                v-if="i.domingo"
+                class="
+                  bg-green-200
+                  text-green-600
+                  py-1
+                  px-3
+                  rounded-full
+                  text-xs
+                  font-semibold
+                "
+                >Com folga</span
+              >
+              <span
+                v-else
+                class="
+                  bg-red-200
+                  text-red-600
+                  py-1
+                  px-3
+                  rounded-full
+                  text-xs
+                  font-semibold
+                "
+                >Sem folga</span
+              >
+            </td>
+            <td class="py-3 px-6 text-center">
+              <div class="flex item-center justify-center">
+                <button>
+                  <div
+                    class="
+                      w-4
+                      mr-2
+                      transform
+                      hover:text-purple-500 hover:scale-110
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                      />
+                    </svg>
+                  </div>
+                </button>
+                <button @click="excluirFuncionario(i)">
+                  <div
+                    class="
+                      w-4
+                      mr-2
+                      transform
+                      hover:text-purple-500 hover:scale-110
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -158,6 +216,9 @@ export default {
       );
       this.buscarFuncionario();
     },
+    async excluirFuncionario(posicao){
+     
+    }
   },
 
   mounted() {
