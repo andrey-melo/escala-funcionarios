@@ -1,11 +1,12 @@
 <template>
+<div class="form-login">
   <div class="w-2/5 m-auto py-5">
-    <input
-      v-model="funcionario.nome"
-      class="w-4/5 block m-auto text-center"
-      type="text"
-      placeholder="Nome"
-    />
+  
+    <div>
+          <label for="email" class="block mb-1 text-gray-600 font-semibold">Nome</label>
+          <input type="text" class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+        </div>
+    <br>
 
     <span class="flex gap-5 items-center justify-center">
       <label
@@ -62,18 +63,16 @@
       <option value="Quinta-feira">Quinta-feira</option>
       <option value="Sexta-feira">Sexta-feira</option>
       <option value="Sábado">Sábado</option>
-    </select>
-    <label
-      >Houve folga no domingo?
-      <input v-model="funcionario.domingo" type="checkbox" value="false"
-    /></label>
-    <button
-      class="px-3 py-1 w-1/2 mx-auto block bg-orange-400 rounded-lg"
-      @click="salvarFuncionario()"
-    >
-      Cadastrar
-    </button>
-  </div>
+    </select> <br>
+   
+      <div class="my-2 font-medium opacity-70">
+						<input type="checkbox">
+						Houve folga no Domingo?
+					</div>
+    
+    </div>
+      <button class="mt-4 w-full bg-yellow-500 font-semibold py-2 rounded-md  tracking-wide">Cadastrar</button>
+    </div>
 
   <div class="w-full lg:w-5/6 m-auto">
     <div class="bg-white shadow-md rounded my-6">
@@ -244,4 +243,17 @@ export default {
 </script>
 
 <style>
+* {
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+}
+
+.form-login {
+  background-color: white;
+  width: 450px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 60px;
+    border-radius: 20px;
+}
 </style>
