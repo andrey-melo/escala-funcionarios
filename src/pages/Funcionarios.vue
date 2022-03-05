@@ -102,7 +102,10 @@
               </div>
             </td>
             <td class="py-3 px-6 text-left">
-              <span>{{ i.turno }}</span>
+              <span v-if="i.turno == 1">04:40 as 13:00</span>
+              <span v-else-if="i.turno == 2">12:40 as 21:00</span>
+              <span v-else-if="i.turno == 3">15:40 as 00:00</span>
+              <span v-else>20:40 as 05:00</span>
             </td>
             <td class="py-3 px-6 text-center">
               <span>{{ i.folga }}</span>
@@ -110,19 +113,6 @@
             <td class="py-3 px-6 text-center">
               <span
                 v-if="i.domingo"
-                class="
-                  bg-green-200
-                  text-green-600
-                  py-1
-                  px-3
-                  rounded-full
-                  text-xs
-                  font-semibold
-                "
-                >Com folga</span
-              >
-              <span
-                v-else
                 class="
                   bg-red-200
                   text-red-600
@@ -134,10 +124,23 @@
                 "
                 >Sem folga</span
               >
+              <span
+                v-else
+                class="
+                  bg-green-200
+                  text-green-600
+                  py-1
+                  px-3
+                  rounded-full
+                  text-xs
+                  font-semibold
+                "
+                >Com folga</span
+              >
             </td>
             <td class="py-3 px-6 text-center">
               <div class="flex item-center justify-center">
-                <button>
+                <button @click="editarFuncionario(i._id)">
                   <div
                     class="
                       w-4
@@ -161,7 +164,7 @@
                     </svg>
                   </div>
                 </button>
-                <button @click="excluirFuncionario(i)">
+                <button @click="excluirFuncionario(i._id)">
                   <div
                     class="
                       w-4
@@ -216,9 +219,22 @@ export default {
       );
       this.buscarFuncionario();
     },
-    async excluirFuncionario(posicao){
-     
-    }
+    async editarFuncionario(id) {
+      const funcionarioTroca = {
+        nome: "Oscar",
+        turno: 3,
+        folga: "Domingo",
+        domingo: false,
+      }
+      const resp = await axios.put(`http://localhost:3001/funcionarios/${id}`, funcionarioTroca);
+      this.buscarFuncionario();
+    },
+    async excluirFuncionario(id) {
+      const resp = await axios.delete(
+        `http://localhost:3001/funcionarios/${id}`
+      );
+      this.buscarFuncionario();
+    },
   },
 
   mounted() {
@@ -228,16 +244,4 @@ export default {
 </script>
 
 <style>
-.com-domingo,
-.sem-domingo {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.com-domingo {
-  background-color: lawngreen;
-}
-.sem-domingo {
-  background-color: red;
-}
 </style>
